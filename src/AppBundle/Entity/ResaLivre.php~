@@ -1,0 +1,130 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ResaLivre
+ *
+ * @ORM\Table()
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ResaLivreRepository")
+ */
+class ResaLivre
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datDebuResa", type="date")
+     */
+    private $datDebuResa;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="datFinResa", type="date")
+     */
+    private $datFinResa;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Livre")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $livre;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Bibli\MembreBundle\Entity\Membre")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $membre;
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set datDebuResa
+     *
+     * @param \DateTime $datDebuResa
+     * @return ResaLivre
+     */
+    public function setDatDebuResa($datDebuResa)
+    {
+        $this->datDebuResa = $datDebuResa;
+
+        return $this;
+    }
+
+    /**
+     * Get datDebuResa
+     *
+     * @return \DateTime 
+     */
+    public function getDatDebuResa()
+    {
+        return $this->datDebuResa;
+    }
+
+    /**
+     * Set datFinResa
+     *
+     * @param \DateTime $datFinResa
+     * @return ResaLivre
+     */
+    public function setDatFinResa($datFinResa)
+    {
+        $this->datFinResa = $datFinResa;
+
+        return $this;
+    }
+
+    /**
+     * Get datFinResa
+     *
+     * @return \DateTime 
+     */
+    public function getDatFinResa()
+    {
+        return $this->datFinResa;
+    }
+
+    /**
+     * Set livre
+     *
+     * @param \AppBundle\Entity\Livre $livre
+     * @return ResaLivre
+     */
+    public function setLivre(\AppBundle\Entity\Livre $livre)
+    {
+        $this->livre = $livre;
+
+        return $this;
+    }
+
+    /**
+     * Get livre
+     *
+     * @return \AppBundle\Entity\Livre 
+     */
+    public function getLivre()
+    {
+        return $this->livre;
+    }
+
+
+}
