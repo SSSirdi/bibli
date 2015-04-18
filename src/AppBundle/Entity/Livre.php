@@ -69,6 +69,24 @@ class Livre
     private $editeur;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Section" , inversedBy="livres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $section;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Etablissement" , inversedBy="livres")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $etablissement;
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="sectionOnly", type="smallint")
+     */
+    private $sectionOnly;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie")
      */
     private $categories;
@@ -320,5 +338,74 @@ class Livre
     public function getAuteurs()
     {
         return $this->auteurs;
+    }
+
+    /**
+     * Set sectionOnly
+     *
+     * @param integer $sectionOnly
+     * @return Livre
+     */
+    public function setSectionOnly($sectionOnly)
+    {
+        $this->sectionOnly = $sectionOnly;
+
+        return $this;
+    }
+
+    /**
+     * Get sectionOnly
+     *
+     * @return integer 
+     */
+    public function getSectionOnly()
+    {
+        return $this->sectionOnly;
+    }
+
+    /**
+     * Set section
+     *
+     * @param \AppBundle\Entity\Section $section
+     * @return Livre
+     */
+    public function setSection(\AppBundle\Entity\Section $section)
+    {
+        $this->section = $section;
+
+        return $this;
+    }
+
+    /**
+     * Get section
+     *
+     * @return \AppBundle\Entity\Section 
+     */
+    public function getSection()
+    {
+        return $this->section;
+    }
+
+    /**
+     * Set etablissement
+     *
+     * @param \AppBundle\Entity\Etablissement $etablissement
+     * @return Livre
+     */
+    public function setEtablissement(\AppBundle\Entity\Etablissement $etablissement)
+    {
+        $this->etablissement = $etablissement;
+
+        return $this;
+    }
+
+    /**
+     * Get etablissement
+     *
+     * @return \AppBundle\Entity\Etablissement 
+     */
+    public function getEtablissement()
+    {
+        return $this->etablissement;
     }
 }

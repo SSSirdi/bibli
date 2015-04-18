@@ -127,4 +127,27 @@ class ResaLivre
     }
 
 
+
+    /**
+     * Set membre
+     *
+     * @param \Bibli\MembreBundle\Entity\Membre $membre
+     * @return ResaLivre
+     */
+    public function setMembre(\Bibli\MembreBundle\Entity\Membre $membre)
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
+    /**
+     * Get membre
+     *
+     * @return \Bibli\MembreBundle\Entity\Membre 
+     */
+    public function getMembre()
+    {
+        return $this->membre;
+    }
 }

@@ -61,6 +61,11 @@ class Etablissement
      */
     private $sections;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Livre", mappedBy="etablissement")
+     */
+    private $livres;
+
 
     /**
      * Get id

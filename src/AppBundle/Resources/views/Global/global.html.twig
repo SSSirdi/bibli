@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body %}
+
+
+{% block content %}{% endblock content %}
+    <header role="banner" class="navbar navbar-fixed-top navbar-inverse">
+    {# START menu #}
+    {#{{ render(controller("AppBundle:Render:menu", { "site" : site,'attributes' : app.request.attributes})) }}#}
+    {# END menu #}
+    </header>
+
+
+
+    <main>
+
+    </main>
+
+    {# START footer #}
+    {#{{ render(controller("AppBundle:Render:menu", { "site" : site,'attributes' : app.request.attributes})) }}#}
+    {# END footer #}
+
+{% endblock body %}

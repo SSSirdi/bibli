@@ -47,7 +47,6 @@ class PretLivre
      */
     private $membre;
 
-
     /**
      * Get id
      *

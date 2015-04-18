@@ -61,6 +61,11 @@ class Etablissement
      */
     private $sections;
 
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Livre", mappedBy="etablissement")
+     */
+    private $livres;
+
 
     /**
      * Get id
@@ -225,5 +230,38 @@ class Etablissement
     public function getSections()
     {
         return $this->sections;
+    }
+
+    /**
+     * Add livres
+     *
+     * @param \AppBundle\Entity\Livre $livres
+     * @return Etablissement
+     */
+    public function addLivre(\AppBundle\Entity\Livre $livres)
+    {
+        $this->livres[] = $livres;
+
+        return $this;
+    }
+
+    /**
+     * Remove livres
+     *
+     * @param \AppBundle\Entity\Livre $livres
+     */
+    public function removeLivre(\AppBundle\Entity\Livre $livres)
+    {
+        $this->livres->removeElement($livres);
+    }
+
+    /**
+     * Get livres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLivres()
+    {
+        return $this->livres;
     }
 }

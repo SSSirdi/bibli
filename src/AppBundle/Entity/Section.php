@@ -36,20 +36,25 @@ class Section
     private $codeSec;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Config",  inversedBy="sections")
+     */
+    private $config;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Etablissement",  inversedBy="sections")
      */
     private $etablissement;
 
     /**
+     * @ORM\OneToMany(targetEntity="Livre", mappedBy="livre")
+     *
+     */
+    private $livres;
+
+    /**
      * @ORM\OneToMany(targetEntity="Bibli\MembreBundle\Entity\Membre", mappedBy="section")
      */
     private $membres;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Config",  inversedBy="sections")
-     */
-    private $config;
-
     /**
      * Get id
      *
@@ -190,5 +195,38 @@ class Section
     public function getConfig()
     {
         return $this->config;
+    }
+
+    /**
+     * Add livres
+     *
+     * @param \AppBundle\Entity\Livre $livres
+     * @return Section
+     */
+    public function addLivre(\AppBundle\Entity\Livre $livres)
+    {
+        $this->livres[] = $livres;
+
+        return $this;
+    }
+
+    /**
+     * Remove livres
+     *
+     * @param \AppBundle\Entity\Livre $livres
+     */
+    public function removeLivre(\AppBundle\Entity\Livre $livres)
+    {
+        $this->livres->removeElement($livres);
+    }
+
+    /**
+     * Get livres
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getLivres()
+    {
+        return $this->livres;
     }
 }
