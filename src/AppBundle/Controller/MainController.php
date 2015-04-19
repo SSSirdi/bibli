@@ -5,6 +5,12 @@ namespace AppBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+//use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Form\LivreType;
+use AppBundle\Entity\Livre;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\DependencyInjection\ContainerInterface as Container;
 
 class MainController extends Controller
 {
@@ -13,6 +19,9 @@ class MainController extends Controller
      */
     public function homepageAction()
     {
+
+
+
         return $this->render('AppBundle:Main:homepage.html.twig');
     }
 
@@ -25,6 +34,9 @@ class MainController extends Controller
         return $this->render('AppBundle:Main:about.html.twig');
     }
 
+    /**
+     * @Route("inscription" ,name="inscription")
+     */
     public function inscriptionAction()
     {
 
@@ -106,10 +118,64 @@ class MainController extends Controller
     /**
      * @Route("retour-livre" ,name="retourlivre")
      */
-    public function RetourLivreAction()
+    public function retourLivreAction()
     {
 
         return $this->render('AppBundle:Main:retour-livre.html.twig');
+    }
+
+    /**
+     * @Route("ajout-livre" ,name="ajoutlivre")
+     * @Security("has_role('ROLE_USER')")
+     */
+    public function ajoutLivreAction(Request $request)
+    {
+        $security =$this->get('security.context');
+        $token = $security->getToken();
+        $user =$token->getUser();
+
+        //dump($user);die();
+
+        $livre = new LivreType();
+        $form = $this->createForm($livre);
+        $form->handleRequest($request);
+
+        if ($form->isValid() ) {
+
+            $security =$this->get('security.context');
+            $token = $security->getToken();
+            if (is_null($token)){
+                echo 'tu sors';
+            }else{
+
+             $user =$token->getUser();
+
+            dump($form->getData());
+            $livre = new Livre();
+            $livre->setTitre($form->getData()->getTitre());
+            $livre->setIsbn13($form->getData()->getIsbn13());
+            $livre->setIsbn10($form->getData()->getIsbn10());
+            $livre->setDescription($form->getData()->getDescription());
+            $livre->setNbpage($form->getData()->getNbpage());
+            $livre->setLangue($form->getData()->getLangue());
+            $livre->setLienImage($form->getData()->getLienImage());
+            $livre->setSection($user->getSection());
+            $livre->setEtablissement($user->getSection()->getEtablissement());
+            $livre->setMembre($user);
+
+            }
+
+
+            $em= $this->getDoctrine()->getManager();
+            $em->persist($livre);
+            $em->flush();
+
+
+        }
+
+        return $this->render('AppBundle:Main:ajout-livre.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
 }

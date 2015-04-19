@@ -3,12 +3,13 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Livre
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\LivreRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\LivreRepository")
  */
 class Livre
 {
@@ -25,6 +26,7 @@ class Livre
      * @var string
      *
      * @ORM\Column(name="isbn13", type="string", length=13)
+     * @Assert\Length(min="13" , max="13", exactMessage="l'ISBN13, comme son nom l'indique fait 13 Caracteres exactement")
      */
     private $isbn13;
 
@@ -32,6 +34,7 @@ class Livre
      * @var string
      *
      * @ORM\Column(name="isbn10", type="string", length=10)
+     * @Assert\Length(min="10" , max="10", exactMessage="l'ISBN10, comme son nom l'indique fait 10 Caracteres exactement")
      */
     private $isbn10;
 
@@ -39,6 +42,7 @@ class Livre
      * @var string
      *
      * @ORM\Column(name="titre", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $titre;
 
@@ -46,6 +50,7 @@ class Livre
      * @var string
      *
      * @ORM\Column(name="description", type="text")
+     * @Assert\Length(min="10" , max="1000", minMessage="La description est trop courte" , maxMessage="La description est trop longue, merci de la racourci avant de valider")
      */
     private $description;
 
@@ -53,18 +58,29 @@ class Livre
      * @var integer
      *
      * @ORM\Column(name="nbpage", type="smallint")
+     * @Assert\Type(type="int")
      */
     private $nbpage;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="langue", type="string", length=15)
-     */
+ * @var string
+ *
+ * @ORM\Column(name="langue", type="string", length=15)
+ *
+ */
     private $langue;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="lienImage", type="string", length=255)
+     *
+     */
+    private $lienImage;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Auteur")
+     *
      */
     private $editeur;
 
@@ -83,8 +99,9 @@ class Livre
      * @var integer
      *
      * @ORM\Column(name="sectionOnly", type="smallint")
+     *
      */
-    private $sectionOnly;
+    private $sectionOnly=0;
 
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Categorie")
@@ -95,6 +112,13 @@ class Livre
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Auteur")
      */
     private $auteurs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Bibli\MembreBundle\Entity\Membre")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $membre;
+
 
     /**
      * Get id
@@ -407,5 +431,51 @@ class Livre
     public function getEtablissement()
     {
         return $this->etablissement;
+    }
+
+    /**
+     * Set lienImage
+     *
+     * @param string $lienImage
+     * @return Livre
+     */
+    public function setLienImage($lienImage)
+    {
+        $this->lienImage = $lienImage;
+
+        return $this;
+    }
+
+    /**
+     * Get lienImage
+     *
+     * @return string 
+     */
+    public function getLienImage()
+    {
+        return $this->lienImage;
+    }
+
+    /**
+     * Set membre
+     *
+     * @param \Bibli\MembreBundle\Entity\Membre $membre
+     * @return Livre
+     */
+    public function setMembre(\Bibli\MembreBundle\Entity\Membre $membre)
+    {
+        $this->membre = $membre;
+
+        return $this;
+    }
+
+    /**
+     * Get membre
+     *
+     * @return \Bibli\MembreBundle\Entity\Membre 
+     */
+    public function getMembre()
+    {
+        return $this->membre;
     }
 }

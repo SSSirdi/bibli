@@ -1,0 +1,24 @@
+{% extends 'AppBundle:Global:global.html.twig' %}
+{% block body %}
+    {#{% form_theme form 'bootstrap_3_layout.html.twig' %}#}
+
+    <h1> ajout livre </h1>
+    {% form_theme form 'bootstrap_3_layout.html.twig' %}
+    {{ form(form) }}
+
+    {# src/OC/PlatformBundle/Resources/views/Advert/form.html.twig #}
+
+    {# Le formulaire reste inchangé #}
+    <div class="well">
+        {{ form(form) }}
+    </div>
+
+    {# On charge la bibliothèque jQuery. Ici, je la prends depuis le CDN google
+       mais si vous l'avez en local, changez simplement l'adresse. #}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    {# Voici le script en question : #}
+    <script type="text/javascript">
+
+    </script>
+{% endblock body %}

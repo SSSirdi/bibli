@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Section
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\SectionRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SectionRepository")
  */
 class Section
 {
@@ -46,7 +46,7 @@ class Section
     private $etablissement;
 
     /**
-     * @ORM\OneToMany(targetEntity="Livre", mappedBy="livre")
+     * @ORM\OneToMany(targetEntity="Livre", mappedBy="section")
      *
      */
     private $livres;

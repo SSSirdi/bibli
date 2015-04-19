@@ -2,13 +2,14 @@
 
 namespace AppBundle\Entity;
 
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * Editeur
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="AppBundle\Entity\EditeurRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\EditeurRepository")
  */
 class Editeur
 {

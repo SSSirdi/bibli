@@ -1,5 +1,22 @@
 {% extends 'AppBundle:Global:global.html.twig' %}
 {% block body %}
 
+   <h1>homepage</h1>
+
+    Name : <input type="text" class="name">
+    <input type="submit" class="name-submit">
+    <div class=".car"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    {#<script type="text/javascript">
+        $('input#name-submit').on('click',function(){
+            var name= $('input#name').val();
+            if ($.trim(name) != '' ) {
+                $.post( ' {{ path('isbnajax') }}' ,{name: name}, function(data) {
+                    alert(data);
+                }  );
+            }
+        });
+    </script>#}
 
 {% endblock body %}
